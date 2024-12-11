@@ -10,13 +10,14 @@ const schema = yup.object().shape({
   name: yup
     .string()
     .min(3, "Minimum 3 letter required ")
+    .max(25)
     .required("Name is required"),
   email: yup.string().email("Invalid email").required("Email is required"),
   url: yup.string().url("Invalid email"),
-  message: yup
+  project: yup
     .string()
-    .min(10, "Message must be at least 10 characters")
-    .required("Message is required"),
+    .min(20, "Project Detail must be 10 Characters  ")
+    .required("Project Detail is required"),
 });
 export const Main = () => {
   const { status, error } = useSelector((state) => state.form);
@@ -39,10 +40,14 @@ export const Main = () => {
           <img src={SideImage} alt="Side Image  " />
         </div>
         {/* //form  */}
-        <div className='m-[100px] '>
-          <div className='mb-[50px]'>
-          <h1 className="text-4xl font-bold text-right leading-snug">We'd Love to hear   </h1>
-          <h1 className="text-4xl font-bold text-right leading-snug">from you</h1>
+        <div className="m-[100px] ">
+          <div className="mb-[50px]">
+            <h1 className="text-4xl font-bold text-right leading-snug">
+              We'd Love to hear{" "}
+            </h1>
+            <h1 className="text-4xl font-bold text-right leading-snug">
+              from you
+            </h1>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -52,21 +57,21 @@ export const Main = () => {
                 type="text*"
                 {...register("name")}
                 className="border border-black p-4 w-full text-base placeholder-black "
-                placeholder="Name"
+                placeholder="Name*"
               />
               <p>{errors.name?.message}</p>
             </div>
-            <div className='mb-[20px]'>
+            <div className="mb-[20px]">
               {/* <label>Email:</label> */}
               <input
                 type="email"
                 {...register("email")}
                 className="border border-black  p-4 w-full text-base placeholder-black  "
-                placeholder="Email"
+                placeholder="Email*"
               />
               <p>{errors.email?.message}</p>
             </div>
-            <div className='mb-[20px]'>
+            <div className="mb-[20px]">
               {/* <label>webSite URL</label> */}
               <input
                 type="url"
@@ -79,26 +84,30 @@ export const Main = () => {
             <div className="mb-[20px]">
               {/* <label>Project Details</label> */}
               <textarea
-                {...register("message")}
+                {...register("project")}
                 className="border w-full text-base placeholder-black h-40 p-4 border-black"
-                placeholder="Project Details"
+                placeholder="Project Details*"
               ></textarea>
               <p>{errors.message?.message}</p>
             </div>
             <button
               type="submit"
-              className="border border-gray-500 p-5 rounded w-full bg-black text-white bottom-0 mt-[20px]"
+              className="border border-gray-500 p-5 rounded w-full bg-black text-white bottom-0 mt-[20px] text-lg"
               disabled={status === "loading"}
             >
               {status === "loading" ? "Send Proposal..." : "Send Proposal"}
             </button>
-        {status === "succeeded" && <h2 className='text-center text-2xl'>Form submitted successfully!</h2>}
-        {status === "failed" && <h1 className='text-center text-2xl'>Error: {error}</h1>}
+            {status === "succeeded" && (
+              <h2 className="text-center text-2xl">
+                Form submitted successfully!
+              </h2>
+            )}
+            {status === "failed" && (
+              <h1 className="text-center text-2xl">Error: {error}</h1>
+            )}
           </form>
         </div>
       </div>
     </>
   );
 };
-
-

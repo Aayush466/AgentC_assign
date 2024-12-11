@@ -6,7 +6,10 @@ export const submitForm = createAsyncThunk(
   "form/submitForm",
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await axios.post("http://example.domain/dev/v1/contact-us", formData);
+      const response = await axios.post(
+        "http://example.domain/dev/v1/contact-us",
+        formData
+      );
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Submission failed");
