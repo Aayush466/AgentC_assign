@@ -1,13 +1,15 @@
-import React from 'react'
-import ClientSection from '../../assets/Past_Clients.png'
+import React from "react";
+import ClientSection from "../../assets/Past_Clients.png";
+
 export const Client = () => {
   return (
-    <>
-    {/* <h2>Client </h2> */}
-    <div className=' mx-[170px] mb-[200px]'>
-         <img src={ClientSection} alt="Client Section " />
+    <div className="w-full mb-16 px-4 lg:px-[170px]">
+      {/* Client Section */}
+      <img
+        src={ClientSection}
+        alt="Client Section"
+        className="w-full h-auto object-contain"
+      />
     </div>
-    </>
-  )
-}
-
+  );
+};

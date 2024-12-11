@@ -9,16 +9,17 @@ import { submitForm } from "../../Slice/FormSlice";
 const schema = yup.object().shape({
   name: yup
     .string()
-    .min(3, "Minimum 3 letter required ")
+    .min(3, "Minimum 3 letters required")
     .max(25)
     .required("Name is required"),
   email: yup.string().email("Invalid email").required("Email is required"),
-  url: yup.string().url("Invalid email"),
+  url: yup.string().url("Invalid URL"),
   project: yup
     .string()
-    .min(20, "Project Detail must be 10 Characters  ")
+    .min(20, "Project Detail must be at least 20 characters")
     .required("Project Detail is required"),
 });
+
 export const Main = () => {
   const { status, error } = useSelector((state) => state.form);
   const dispatch = useDispatch();
@@ -33,77 +34,84 @@ export const Main = () => {
   const onSubmit = (data) => {
     dispatch(submitForm(data));
   };
+
   return (
     <>
-      <div className="grid grid-cols-2 mt-6 ">
-        <div className="m-[100px]">
-          <img src={SideImage} alt="Side Image  " />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 px-4 sm:px-8 md:px-16 lg:px-[100px]">
+        <div className="flex justify-center items-center">
+          <img
+            src={SideImage}
+            alt="Side Image"
+            className="w-full max-w-sm lg:max-w-full"
+          />
         </div>
-        {/* //form  */}
-        <div className="m-[100px] ">
-          <div className="mb-[50px]">
-            <h1 className="text-4xl font-bold text-right leading-snug">
-              We'd Love to hear{" "}
+        <div>
+          <div className="mb-8 text-center lg:text-right">
+            <h1 className="text-3xl sm:text-4xl font-bold leading-snug">
+              We'd Love to hear
             </h1>
-            <h1 className="text-4xl font-bold text-right leading-snug">
+            <h1 className="text-3xl sm:text-4xl font-bold leading-snug">
               from you
             </h1>
           </div>
-
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-[20px] ">
-              {/* <label>Name:</label> */}
+            <div className="mb-4">
               <input
-                type="text*"
+                type="text"
                 {...register("name")}
-                className="border border-black p-4 w-full text-base placeholder-black "
+                className="border border-black p-4 w-full text-base placeholder-black"
                 placeholder="Name*"
               />
-              <p>{errors.name?.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.name?.message}
+              </p>
             </div>
-            <div className="mb-[20px]">
-              {/* <label>Email:</label> */}
+            <div className="mb-4">
               <input
                 type="email"
                 {...register("email")}
-                className="border border-black  p-4 w-full text-base placeholder-black  "
+                className="border border-black p-4 w-full text-base placeholder-black"
                 placeholder="Email*"
               />
-              <p>{errors.email?.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email?.message}
+              </p>
             </div>
-            <div className="mb-[20px]">
-              {/* <label>webSite URL</label> */}
+            <div className="mb-4">
               <input
                 type="url"
                 {...register("url")}
-                className="border border-black  p-4 w-full text-base placeholder-black  "
-                placeholder="Website url"
+                className="border border-black p-4 w-full text-base placeholder-black"
+                placeholder="Website URL"
               />
-              <p>{errors.message?.message}</p>
+              <p className="text-red-500 text-sm mt-1">{errors.url?.message}</p>
             </div>
-            <div className="mb-[20px]">
-              {/* <label>Project Details</label> */}
+            <div className="mb-4">
               <textarea
                 {...register("project")}
                 className="border w-full text-base placeholder-black h-40 p-4 border-black"
                 placeholder="Project Details*"
               ></textarea>
-              <p>{errors.message?.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.project?.message}
+              </p>
             </div>
             <button
               type="submit"
-              className="border border-gray-500 p-5 rounded w-full bg-black text-white bottom-0 mt-[20px] text-lg"
+              className="border border-gray-500 p-5 rounded w-full bg-black text-white mt-4 text-lg"
               disabled={status === "loading"}
             >
               {status === "loading" ? "Send Proposal..." : "Send Proposal"}
             </button>
             {status === "succeeded" && (
-              <h2 className="text-center text-2xl">
+              <h2 className="text-center text-2xl mt-4 text-green-500">
                 Form submitted successfully!
               </h2>
             )}
             {status === "failed" && (
-              <h1 className="text-center text-2xl">Error: {error}</h1>
+              <h1 className="text-center text-2xl mt-4 text-red-500">
+                Error: {error}
+              </h1>
             )}
           </form>
         </div>

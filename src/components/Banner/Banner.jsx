@@ -1,13 +1,15 @@
-import React from 'react'
-import BannerSection from '../../assets/Banner.png'
+import React from "react";
+import BannerSection from "../../assets/Banner.png";
+
 export const Banner = () => {
   return (
-    <>
-    {/* <h1>Banner</h1> */}
-    <div className='mb-[60px]'>
-    <img src={BannerSection} alt="Banner Section " />
+    <div className="relative mb-10">
+      {/* Banner Image */}
+      <img
+        src={BannerSection}
+        alt="Banner Section"
+        className="w-full h-auto object-cover"
+      />
     </div>
-    </>
-  )
-}
-
+  );
+};
